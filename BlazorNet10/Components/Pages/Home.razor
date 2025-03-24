@@ -7,7 +7,7 @@
 
 <h1>Movies</h1>
 
-<QuickGrid @ref="movieGrid" Items="filteredMovies">
+<QuickGrid @ref="movieGrid" Items="filteredMovies" RowClass="@(movie => movie.ReleaseYear > 1999 ? "new" : "old")">
     <PropertyColumn Property="@(m => m.Title)" Title="Title">
         <ColumnOptions>
             <input type="search" @bind="titleFilter" placeholder="Filter by title" />
