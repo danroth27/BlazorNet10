@@ -1,0 +1,59 @@
+﻿@page "/"
+@inject NavigationManager Nav
+
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+<PageTitle>Home</PageTitle>
+
+<h1>Movies</h1>
+
+<QuickGrid @ref="movieGrid" Items="filteredMovies">
+    <PropertyColumn Property="@(m => m.Title)" Title="Title">
+        <ColumnOptions>
+            <input type="search" @bind="titleFilter" placeholder="Filter by title" />
+        </ColumnOptions>
+    </PropertyColumn>
+    <PropertyColumn Property="@(m => m.Genre)" Title="Genre" />
+    <PropertyColumn Property="@(m => m.ReleaseYear)" Title="Release Year" />
+</QuickGrid>
+
+<button class="btn btn-primary mt-3" @onclick="@(() => Nav.NavigateTo(Nav.GetUriWithQueryParameter("search", "test")))">Add query parameter</button>
+
+@code {
+    private QuickGrid<Movie>? movieGrid;
+    private string titleFilter = string.Empty;
+    private IQueryable<Movie> movies = new List<Movie>
+    {
+        new Movie { Title = "Inception", Genre = "Sci-Fi", ReleaseYear = 2010 },
+        new Movie { Title = "The Matrix", Genre = "Sci-Fi", ReleaseYear = 1999 },
+        new Movie { Title = "Interstellar", Genre = "Sci-Fi", ReleaseYear = 2014 },
+        new Movie { Title = "The Dark Knight", Genre = "Action", ReleaseYear = 2008 },
+        new Movie { Title = "Pulp Fiction", Genre = "Crime", ReleaseYear = 1994 },
+        new Movie { Title = "Forrest Gump", Genre = "Drama", ReleaseYear = 1994 },
+        new Movie { Title = "The Shawshank Redemption", Genre = "Drama", ReleaseYear = 1994 },
+        new Movie { Title = "The Godfather", Genre = "Crime", ReleaseYear = 1972 },
+        new Movie { Title = "The Godfather: Part II", Genre = "Crime", ReleaseYear = 1974 },
+        new Movie { Title = "The Lord of the Rings: The Return of the King", Genre = "Fantasy", ReleaseYear = 2003 },
+        new Movie { Title = "The Lord of the Rings: The Fellowship of the Ring", Genre = "Fantasy", ReleaseYear = 2001 },
+        new Movie { Title = "The Lord of the Rings: The Two Towers", Genre = "Fantasy", ReleaseYear = 2002 },
+        new Movie { Title = "Fight Club", Genre = "Drama", ReleaseYear = 1999 },
+        new Movie { Title = "Star Wars: Episode V - The Empire Strikes Back", Genre = "Sci-Fi", ReleaseYear = 1980 },
+        new Movie { Title = "The Matrix Reloaded", Genre = "Sci-Fi", ReleaseYear = 2003 },
+        new Movie { Title = "The Matrix Revolutions", Genre = "Sci-Fi", ReleaseYear = 2003 },
+        new Movie { Title = "Gladiator", Genre = "Action", ReleaseYear = 2000 },
+        new Movie { Title = "The Lion King", Genre = "Animation", ReleaseYear = 1994 },
+        new Movie { Title = "Jurassic Park", Genre = "Sci-Fi", ReleaseYear = 1993 },
+        new Movie { Title = "The Silence of the Lambs", Genre = "Thriller", ReleaseYear = 1991 },
+        new Movie { Title = "Saving Private Ryan", Genre = "War", ReleaseYear = 1998 },
+        new Movie { Title = "Schindler's List", Genre = "Drama", ReleaseYear = 1993 },
+        new Movie { Title = "Braveheart", Genre = "Action", ReleaseYear = 1995 }
+    }.AsQueryable();
+    private IQueryable<Movie> filteredMovies => movies.Where(m => m.Title!.Contains(titleFilter));
+
+    public class Movie
+    {
+        public string? Title { get; set; }
+        public string? Genre { get; set; }
+        public int ReleaseYear { get; set; }
+    }
+}
