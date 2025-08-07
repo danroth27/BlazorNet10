@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="10.0.0-preview.6.25321.102" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="10.0.0-preview.6.25358.103" />
   </ItemGroup>
 
 </Project>
